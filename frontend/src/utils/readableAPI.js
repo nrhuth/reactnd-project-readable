@@ -1,65 +1,110 @@
 const api = "http://localhost:3001"
 
 const headers = {
-    //'Accept': 'application/json',
     'Authorization': 'sdvsgfsd'
 }
 
 export const getCategories = () =>
-    fetch(`${api}/categories`, {headers}).then(res => res.json())
+    fetch(`${api}/categories`, {headers}).then(resolve => resolve.json())
 
-/*export getPostsForCategory = (category) =>
-    fetch(`${api}/${category}/posts`, {headers})
-        .then(res => res.json())
-        .then(data => data.posts)
+export const getPostsForCategory = (category) =>
+    fetch(`${api}/${category}/posts`, {headers}).then(resolve => resolve.json())
 
-export getPosts = () =>
-    fetch(`${api}/posts`, {headers})
-        .then(res => res.json())
-        .then(data => data.posts)
+export const getPosts = () =>
+    fetch(`${api}/posts`, {headers}).then(resolve => resolve.json())
 
-export newPost = (post) =>
-    fetch(`${api}/books/${post.id}`, {
+export const newPost = (post) =>
+    fetch(`${api}/posts/`, {
         method: 'POST',
         headers: {
             ...headers,
             'Content-Type': 'application/json'
         },
-        body: JSON.stringify({ post })
-    }).then(res => res.json())
+        body: JSON.stringify(post)
+    }).then(resolve => resolve)
 
-export getPost = (post) =>
-    fetch(`${api}/posts/${post.id}`, {headers})
-        .then(res => res.json())
-        .then(data => data.posts)
+export const getPost = (id) =>
+    fetch(`${api}/posts/${id}`, {headers}).then(res => res.json())
 
-export vote = (post, vote) =>
-    fetch(`${api}/posts/${post.id}`, {
+export const votePost = (id, vote) =>
+    fetch(`${api}/posts/${id}`, {
         method: 'POST',
         headers: {
             ...headers,
             'Content-Type': 'application/json'
         },
-        body: JSON.stringify({ vote })
-    }).then(res => res.json())
+        body: JSON.stringify({option: vote})
+    }).then(resolve => resolve)
 
-export editPost = (post) =>
+export const editPost = (post) =>
     fetch(`${api}/posts/${post.id}`, {
         method: 'PUT',
         headers: {
             ...headers,
             'Content-Type': 'application/json'
         },
-        body: JSON.stringify({ post })
-    }).then(res => res.json())
+        body: JSON.stringify({
+            title: post.title,
+            body: post.body,
+        })
+    }).then(resolve => resolve)
 
-export deletePost = (post) =>
-    fetch(`${api}/posts/${post.id}`, {
+export const deletePost = (id) =>
+    fetch(`${api}/posts/${id}`, {
         method: 'DELETE',
-        headers: {headers},
-    }).then(res => res.json())*/
+        headers: {
+            ...headers,
+            'Content-Type': 'application/json'
+        },
+    }).then(resolve => resolve)
 
+export const getComments = (id) =>
+    fetch(`${api}/posts/${id}/comments`, {headers}).then(res => res.json())
 
+export const newComment = (comment) =>
+    fetch(`${api}/comments/`, {
+        method: 'POST',
+        headers: {
+            ...headers,
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(comment)
+    }).then(resolve => resolve)
+
+export const getComment = (id) =>
+    fetch(`${api}/comments/${id}`, {headers}).then(resolve => resolve.json())
+
+export const voteComment = (id, vote) =>
+    fetch(`${api}/comments/${id}`, {
+        method: 'POST',
+        headers: {
+            ...headers,
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({option: vote})
+    }).then(resolve => resolve)
+
+export const editComment = (comment) =>
+    fetch(`${api}/comments/${comment.id}`, {
+        method: 'PUT',
+        headers: {
+            ...headers,
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({
+            timestamp: Date.now(),
+            body: comment.body,
+        })
+    }).then(resolve => resolve)
+
+export const deleteComment = (id) =>
+    fetch(`${api}/comments/${id}`, {
+        method: 'DELETE',
+        headers: {
+            ...headers,
+            'Content-Type': 'application/json'
+        },
+    }).then(resolve => resolve)
 
 
 
