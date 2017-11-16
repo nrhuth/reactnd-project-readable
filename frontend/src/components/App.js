@@ -1,10 +1,18 @@
 import React, { Component } from 'react';
-import logo from './logo.svg';
-import './App.css';
-import * as ReadableAPI from './utils/readableAPI.js'
+import logo from '../logo.svg';
+import '../App.css';
+import * as ReadableAPI from '../utils/readableAPI.js'
+import { connect } from 'react-redux'
+import { addPost, addPosts } from '../actions'
+//import CalendarIcon from 'react-icons/lib/fa/calendar-plus-o'
+//import Modal from 'react-modal'
+//import ArrowRightIcon from 'react-icons/lib/fa/arrow-circle-right'
+//import Loading from 'react-loading'
 
 class App extends Component {
-
+    state = {
+        post: {},
+    }
     componentDidMount() {
         const uuidv1 = require('uuid/v1')
         /*ReadableAPI.getCategories().then((categories)=> {
@@ -12,11 +20,11 @@ class App extends Component {
         })
         ReadableAPI.getPostsForCategory('react').then((posts)=> {
             console.log(posts)
+        })*/
+        ReadableAPI.getPosts().then((posts) => {
+            this.props.requestPosts(posts)
         })
-        ReadableAPI.getPosts().then((posts)=> {
-            console.log(posts)
-        })
-        const post = {
+        /*const post = {
             id: uuidv1(),
             timestamp: Date.now(),
             title: 'Test',
@@ -81,21 +89,65 @@ class App extends Component {
             console.log(posts)
         })*/
 
+        /*store.dispatch(addPost ({
+            id: uuidv1(),
+            timestamp: Date.now(),
+            title: 'Action test',
+            body: 'Test test!',
+            author: 'Test auhtor',
+            category: 'redux',
+        }))*/
     }
 
-  render() {
-    return (
-      <div className="App">
-        <header className="App-header">
-          <img src={logo} className="App-logo" alt="logo" />
-          <h1 className="App-title">Welcome to React</h1>
-        </header>
-        <p className="App-intro">
-          To get started, edit <code>src/App.js</code> and save to reload.
-        </p>
-      </div>
-    );
-  }
+    render() {
+        const {post} = this.state
+        const { selectPost, requestPosts } = this.props
+        return (
+            <div className="App">
+                <header className="App-header">
+                    <img src={logo} className="App-logo" alt="logo" />
+                    <h1 className="App-title">Welcome to React</h1>
+                </header>
+                <p className="App-intro">
+                    To get started, edit <code>src/App.js</code> and save to reload.
+                </p>
+                <p>
+                    <button onClick={() => selectPost({
+                        id: '230923423',
+                        timestamp: Date.now(),
+                        title: 'Action test',
+                        body: 'Test test!',
+                        author: 'Test auhtor',
+                        category: 'redux'
+                    })}>New Post</button>
+                    <button onClick={() => selectPost({
+                        id: '123456',
+                        timestamp: Date.now(),
+                        title: 'Action test',
+                        body: 'Test test!',
+                        author: 'Test auhtor',
+                        category: 'redux'
+                    })}>New Post</button>
+                </p>
+            </div>
+        );
+    }
 }
 
-export default App;
+function mapStateToProps ( post ) {
+    return {
+        post
+    }
+}
+
+function mapDispatchToProps (dispatch) {
+    return {
+        selectPost: (data) => dispatch(addPost(data)),
+        requestPosts: (data) => dispatch(addPosts(data))
+    }
+}
+
+export default connect(
+    mapStateToProps,
+    mapDispatchToProps
+)(App)
