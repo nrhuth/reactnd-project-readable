@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
-import logo from '../logo.svg';
-import '../App.css';
+//import '../App.css';
 import * as ReadableAPI from '../utils/readableAPI.js'
 import { connect } from 'react-redux'
 import { addPost, addPosts } from '../actions'
@@ -100,30 +99,39 @@ class App extends Component {
     }
 
     render() {
-        const {post} = this.state
-        const { selectPost, requestPosts } = this.props
+        //const { post } = this.state
+        //const { post, selectPost, requestPosts } = this.props
+        //console.log(post)
         return (
             <div className="App">
                 <header className="App-header">
-                    <img src={logo} className="App-logo" alt="logo" />
-                    <h1 className="App-title">Welcome to React</h1>
+                    <h1 className="App-title">Readable</h1>
                 </header>
-                <p className="App-intro">
-                    To get started, edit <code>src/App.js</code> and save to reload.
-                </p>
+                {this.props.post.map(post => (
+                    <article>
+                        <h1>{post.title}</h1>
+                        <p>
+                            <span>Published: {post.timestamp} | Author: {post.author} | Category: {post.category}</span>
+                            <span></span>
+                        </p>
+                        <content>
+                            {post.body}
+                        </content>
+                    </article>
+                ))}
                 <p>
-                    <button onClick={() => selectPost({
+                    <button onClick={() => this.props.selectPost({
                         id: '230923423',
                         timestamp: Date.now(),
-                        title: 'Action test',
+                        title: 'One',
                         body: 'Test test!',
                         author: 'Test auhtor',
                         category: 'redux'
                     })}>New Post</button>
-                    <button onClick={() => selectPost({
+                    <button onClick={() => this.props.selectPost({
                         id: '123456',
                         timestamp: Date.now(),
-                        title: 'Action test',
+                        title: 'Two',
                         body: 'Test test!',
                         author: 'Test auhtor',
                         category: 'redux'
