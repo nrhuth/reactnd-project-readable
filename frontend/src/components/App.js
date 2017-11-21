@@ -101,14 +101,14 @@ class App extends Component {
     render() {
         //const { post } = this.state
         //const { post, selectPost, requestPosts } = this.props
-        //console.log(post)
+        //console.log(post.posts)
         return (
             <div className="App">
                 <header className="App-header">
                     <h1 className="App-title">Readable</h1>
                 </header>
-                {this.props.post.map(post => (
-                    <article>
+                {this.props.post.posts.map(post => (
+                    <article key={post.id}>
                         <h1>{post.title}</h1>
                         <p>
                             <span>Published: {post.timestamp} | Author: {post.author} | Category: {post.category}</span>

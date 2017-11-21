@@ -1,7 +1,7 @@
 const api = "http://localhost:3001"
 
 const headers = {
-    'Authorization': 'sdvsgfsd'
+    'Authorization': 'qweqew'
 }
 
 export const getCategories = () =>
@@ -106,6 +106,21 @@ export const deleteComment = (id) =>
         },
     }).then(resolve => resolve)
 
-
+export default {
+    getCategories,
+    getPostsForCategory,
+    getPosts,
+    newPost,
+    getPost,
+    votePost,
+    editPost,
+    deletePost,
+    getComments,
+    newComment,
+    getComment,
+    voteComment,
+    editComment,
+    deleteComment,
+}
 
 

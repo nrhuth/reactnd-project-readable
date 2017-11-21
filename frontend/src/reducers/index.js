@@ -1,4 +1,4 @@
-//import { combineReducers } from 'redux'
+import { combineReducers } from 'redux'
 import {
     ADD_POSTS,
     ADD_POST,
@@ -32,4 +32,6 @@ function posts (state = [], action) {
     }
 }
 
-export default posts
+export default combineReducers({
+    posts,
+})

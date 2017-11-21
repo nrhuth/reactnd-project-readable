@@ -1,3 +1,5 @@
+import readableAPI from '../utils/readableAPI'
+
 export const ADD_POSTS = 'ADD_POSTS'
 export const ADD_POST = 'ADD_POST'
 /*export const ADD_POST_VOTE = 'ADD_POST_VOTE'
@@ -15,7 +17,12 @@ export function addPosts (posts) {
     }
 }
 
-export function addPost (post) {
+export const addPost = (data) => (dispatch) => {
+    readableAPI.newPost(data)
+        .then(dispatch(addPostAction(data)))
+}
+
+const addPostAction = (post) => {
     return {
         type: ADD_POST,
         post,
