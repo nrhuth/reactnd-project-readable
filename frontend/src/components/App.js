@@ -7,6 +7,8 @@ import { addPost, addPosts } from '../actions'
 //import Modal from 'react-modal'
 //import ArrowRightIcon from 'react-icons/lib/fa/arrow-circle-right'
 //import Loading from 'react-loading'
+import { withRouter, Switch, Route } from 'react-router-dom';
+import NewPost from './NewPost'
 
 class App extends Component {
     state = {
@@ -119,7 +121,12 @@ class App extends Component {
                         </content>
                     </article>
                 ))}
-                <p>
+                <Route exact
+                       path='/posts/new'
+                       component={NewPost}
+                />
+
+                {/*<p>
                     <button onClick={() => this.props.selectPost({
                         id: '230923423',
                         timestamp: Date.now(),
@@ -136,7 +143,7 @@ class App extends Component {
                         author: 'Test auhtor',
                         category: 'redux'
                     })}>New Post</button>
-                </p>
+                </p>*/}
             </div>
         );
     }
@@ -155,7 +162,7 @@ function mapDispatchToProps (dispatch) {
     }
 }
 
-export default connect(
+export default withRouter(connect(
     mapStateToProps,
     mapDispatchToProps
-)(App)
+)(App))
